@@ -1,8 +1,7 @@
 {
   "name": "whatsapp-wwebjs-addon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "server.js",
-  "type": "module",
   "dependencies": {
     "whatsapp-web.js": "^1.23.0",
     "qrcode-terminal": "^0.12.0",
