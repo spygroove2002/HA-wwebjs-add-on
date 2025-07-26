@@ -1,12 +1,15 @@
 FROM node:18-alpine
+
+# Install Chromium & required fonts for Puppeteer
 RUN apk add --no-cache chromium nss freetype harfbuzz ca-certificates ttf-freefont
+
 WORKDIR /app
 
-# Install app dependencies
+# Copy package.json and install dependencies
 COPY package.json package.json
-RUN npm install
+RUN npm install --omit=dev
 
-# Copy app files
+# Copy application files
 COPY server.js server.js
 COPY run.sh run.sh
 RUN chmod +x run.sh
