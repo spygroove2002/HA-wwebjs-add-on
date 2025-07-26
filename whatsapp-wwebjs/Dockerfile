@@ -12,4 +12,4 @@ COPY run.sh run.sh
 RUN chmod +x run.sh
 
 VOLUME ["/session"]
-CMD ["/run.sh"]
+CMD ["sh", "/app/run.sh"]
