@@ -1,5 +1,7 @@
 const express = require("express");
 const qrcode = require("qrcode-terminal");
+const fs = require("fs");
+const path = require("path");
 const { Client, LocalAuth } = require("whatsapp-web.js");
 
 const app = express();
@@ -23,13 +25,18 @@ const client = new Client({
   }
 });
 
-// QR code event
+// Serve OpenAPI specification
+app.get("/openapi.yaml", (req, res) => {
+  res.sendFile(path.join(__dirname, "openapi.yaml"));
+});
+
+// WhatsApp QR Code event
 client.on("qr", (qr) => {
   console.log("Scan this QR code in WhatsApp:");
   qrcode.generate(qr, { small: true });
 });
 
-// Ready event
+// WhatsApp Ready event
 client.on("ready", () => {
   console.log("WhatsApp client is ready!");
 });

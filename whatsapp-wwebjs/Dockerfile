@@ -12,6 +12,7 @@ RUN npm install --omit=dev
 # Copy application files
 COPY server.js server.js
 COPY run.sh run.sh
+COPY openapi.yaml openapi.yaml
 RUN chmod +x run.sh
 
 VOLUME ["/session"]

@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: WhatsApp wwebjs Add-on API
+  description: REST API for interacting with WhatsApp via whatsapp-web.js on Home Assistant
+  version: "1.0.0"
+servers:
+  - url: http://homeassistant.local:3000
+paths:
+  /chats:
+    get:
+      summary: List WhatsApp chats
+      responses:
+        "200":
+          description: List of chats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "120363043969458695@g.us"
+                    name:
+                      type: string
+                      example: "Marketing Team"
+  /messages/{chatId}:
+    get:
+      summary: Get last 50 messages from a chat
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: WhatsApp chat ID
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    from:
+                      type: string
+                      example: "120363043969458695@g.us"
+                    body:
+                      type: string
+                      example: "Hello team!"
