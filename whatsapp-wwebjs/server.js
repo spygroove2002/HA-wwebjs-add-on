@@ -8,7 +8,7 @@ const app = express();
 const port = 3000;
 
 const client = new Client({
-  authStrategy: new LocalAuth({ dataPath: "/session" }),
+  authStrategy: new LocalAuth({ dataPath: "/config/whatsapp-session" }),
   puppeteer: {
     headless: true,
     executablePath: "/usr/bin/chromium",
@@ -43,34 +43,4 @@ client.on("ready", () => {
 
 // List chats
 app.get("/chats", async (req, res) => {
-  const chats = await client.getChats();
-  res.json(chats.map((c) => ({
-    id: c.id._serialized,
-    name: c.name
-  })));
-});
-
-// Get last 50 messages
-app.get("/messages/:chatId", async (req, res) => {
-  const chat = await client.getChatById(req.params.chatId);
-  const messages = await chat.fetchMessages({ limit: 50 });
-  res.json(messages.map((m) => ({
-    from: m.from,
-    body: m.body
-  })));
-});
-
-// Send message endpoint (no auth for now)
-app.use(express.json());
-app.post("/messages", async (req, res) => {
-  const { chatId, message } = req.body;
-  if (!chatId || !message) {
-    return res.status(400).json({ error: "chatId and message are required" });
-  }
-  const chat = await client.getChatById(chatId);
-  await chat.sendMessage(message);
-  res.json({ status: "Message sent", chatId, message });
-});
-
-client.initialize();
-app.listen(port, () => console.log(`REST API running on port ${port}`));
+  const chats = await client.getChats
