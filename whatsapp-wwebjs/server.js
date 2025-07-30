@@ -8,7 +8,7 @@ const app = express();
 const port = 3000;
 
 const client = new Client({
-  authStrategy: new LocalAuth({ dataPath: "/config/whatsapp-session" }),
+  authStrategy: new LocalAuth({ dataPath: "/config/whatsapp-wwebjs-session" }),
   puppeteer: {
     headless: true,
     executablePath: "/usr/bin/chromium",
