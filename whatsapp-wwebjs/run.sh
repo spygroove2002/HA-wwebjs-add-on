@@ -5,5 +5,7 @@ SESSION_DIR="/config/whatsapp-wwebjs-session"
 mkdir -p "$SESSION_DIR"
 chmod -R 777 "$SESSION_DIR"
 
-# No symlink needed
+# Debug line (optional)
+echo "Launching with session directory: $SESSION_DIR"
+
 node server.js
