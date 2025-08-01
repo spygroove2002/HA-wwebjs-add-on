@@ -1,6 +1,7 @@
 FROM node:18-bullseye-slim
 
-# Install Chromium & dependencies
+RUN echo "nameserver 1.1.1.1" > /etc/resolv.conf
+
 RUN apt-get update && apt-get install -y \
     chromium \
     chromium-driver \
@@ -25,11 +26,9 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Copy package.json and install dependencies
 COPY package.json package.json
 RUN npm install --omit=dev
 
-# Copy application files
 COPY server.js server.js
 COPY run.sh run.sh
 COPY openapi.yaml openapi.yaml

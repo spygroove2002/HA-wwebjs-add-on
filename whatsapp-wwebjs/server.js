@@ -27,23 +27,19 @@ const client = new Client({
   }
 });
 
-// Serve OpenAPI specification
 app.get("/openapi.yaml", (req, res) => {
   res.sendFile(path.join(__dirname, "openapi.yaml"));
 });
 
-// QR Code event
 client.on("qr", (qr) => {
   console.log("Scan this QR code in WhatsApp:");
   qrcode.generate(qr, { small: true });
 });
 
-// Ready event
 client.on("ready", () => {
   console.log("WhatsApp client is ready!");
 });
 
-// List chats
 app.get("/chats", async (req, res) => {
   const chats = await client.getChats();
   res.json(chats.map((c) => ({
@@ -52,14 +48,12 @@ app.get("/chats", async (req, res) => {
   })));
 });
 
-// Get last 50 messages (newest first)
 app.get("/messages/:chatId", async (req, res) => {
   const chat = await client.getChatById(req.params.chatId);
   const messages = await chat.fetchMessages({ limit: 50 });
   res.json(messages.reverse());
 });
 
-// Send message
 app.use(express.json());
 app.post("/messages", async (req, res) => {
   const { chatId, message } = req.body;
@@ -72,7 +66,4 @@ app.post("/messages", async (req, res) => {
 });
 
 client.initialize();
-
-app.listen(port, () => {
-  console.log(`REST API running on port ${port}`);
-});
+app.listen(port, () => console.log(`REST API running on port ${port}`));
