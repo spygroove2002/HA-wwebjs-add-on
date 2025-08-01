@@ -1,10 +1,6 @@
 #!/bin/sh
-SESSION_DIR="/config/whatsapp-wwebjs-session"
-
-# Ensure persistent session directory exists
-mkdir -p "$SESSION_DIR"
-chmod -R 777 "$SESSION_DIR"
-
-echo "Launching with session directory: $SESSION_DIR"
-
+if [ ! -d /config/whatsapp-wwebjs-session ]; then
+  mkdir -p /config/whatsapp-wwebjs-session
+fi
+ln -s /config/whatsapp-wwebjs-session /session
 node server.js
