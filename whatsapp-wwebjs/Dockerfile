@@ -1,7 +1,5 @@
 FROM node:18-bullseye-slim
 
-RUN echo "nameserver 1.1.1.1" > /etc/resolv.conf
-
 RUN apt-get update && apt-get install -y \
     chromium \
     chromium-driver \
