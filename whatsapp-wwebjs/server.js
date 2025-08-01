@@ -51,7 +51,7 @@ app.get("/chats", async (req, res) => {
 app.get("/messages/:chatId", async (req, res) => {
   const chat = await client.getChatById(req.params.chatId);
   const messages = await chat.fetchMessages({ limit: 50 });
-  res.json(messages.reverse());
+  res.json(messages.reverse);
 });
 
 app.use(express.json());
