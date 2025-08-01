@@ -72,4 +72,7 @@ app.post("/messages", async (req, res) => {
 });
 
 client.initialize();
-app.listen(port, () => console.log(`REST API running on port ${port}`));
+
+app.listen(port, () => {
+  console.log(`REST API running on port ${port}`);
+});
